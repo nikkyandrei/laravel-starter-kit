@@ -42,6 +42,7 @@
     },
     "scripts": {
         "setup": [
+            "composer clear-cache",
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
@@ -86,7 +87,7 @@
             "rector --dry-run",
             "bun run test:lint"
         ],
-        "test:unit": "XDEBUG_MODE=\"coverage\" pest --parallel --coverage --exactly=100.0",
+        "test:unit": "php -r \"putenv('XDEBUG_MODE=coverage'); passthru('php vendor/bin/pest --parallel --coverage --exactly=100.0');\"",
         "test:types": "phpstan",
         "test": [
             "@test:type-coverage",
